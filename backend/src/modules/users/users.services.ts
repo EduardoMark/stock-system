@@ -1,6 +1,8 @@
-import { hashPassword } from '../../utils/hash-password.js';
+import { comparePassword, hashPassword } from '../../utils/hash-password.js';
 import type { createUserBody } from './dtos/create-user.dto.js';
 import {prisma} from '../../../lib/prisma.js';
+import { generateToken } from '../auth/auth.service.js';
+import { AppError } from '../../erros/app-error.js';
 
 export async function createUserService(data: createUserBody) {
   const password = await hashPassword(data.password);
@@ -15,6 +17,28 @@ export async function createUserService(data: createUserBody) {
     });
   } catch (error) {
     console.error('Error creating user:', error);
-    throw new Error('Failed to create user', { cause: error });
+    throw new AppError('Failed to create user', 500);
   }
+}
+
+export async function userLoginService(email: string, password: string) {
+  const user = await prisma.user.findUnique({
+    where: {
+      email
+    },
+  });
+
+  if (!user) {
+    throw new AppError('User not found', 404);
+  }
+
+  const isValidPassword = await comparePassword(password, user.password_hash);
+
+  if (!isValidPassword) {
+    throw new AppError('Invalid credentials', 401);
+  }
+
+  const token = await generateToken(user.id);
+
+  return token;
 }
