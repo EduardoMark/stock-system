@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { createProductSchema, type CreateProductBody } from './dtos/create-product.dto.js';
-import { createProductService } from './product.service.js';
+import { createProductService, getProductsService, getProductByIdService} from './product.service.js';
 
 export async function createProductController(request: FastifyRequest, reply: FastifyReply) {
   await request.jwtVerify();
@@ -10,4 +10,26 @@ export async function createProductController(request: FastifyRequest, reply: Fa
   await createProductService(body);
 
   return reply.status(201).send({ message: 'Product created successfully' });
+}
+
+export async function getProductsController(request: FastifyRequest, reply: FastifyReply) {
+  await request.jwtVerify();
+
+  const products = await getProductsService();
+
+  return reply.status(200).send(products);
+}
+
+export async function getProductByIdController(request: FastifyRequest, reply: FastifyReply) {
+  await request.jwtVerify();
+
+  const { id } = request.params as { id: string };
+
+  const product = await getProductByIdService(id);
+
+  if (!product) {
+    return reply.status(404).send({ message: 'Product not found' });
+  }
+
+  return reply.status(200).send(product);
 }
