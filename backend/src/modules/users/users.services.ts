@@ -1,8 +1,7 @@
 import { comparePassword, hashPassword } from '../../utils/hash-password.js';
-import type { createUserBody } from './dtos/create-user.dto.js';
 import {prisma} from '../../../lib/prisma.js';
-import { generateToken } from '../auth/auth.service.js';
 import { AppError } from '../../erros/app-error.js';
+import type { createUserBody } from './dtos/create-user.dto.js';
 
 export async function createUserService(data: createUserBody) {
   const password = await hashPassword(data.password);
@@ -38,7 +37,5 @@ export async function userLoginService(email: string, password: string) {
     throw new AppError('Invalid credentials', 401);
   }
 
-  const token = await generateToken(user.id);
-
-  return token;
+  return user;
 }

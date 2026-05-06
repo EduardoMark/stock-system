@@ -14,7 +14,8 @@ export async function createUserController(request: FastifyRequest, reply: Fasti
 export async function userLoginController(request: FastifyRequest, reply: FastifyReply) {
   const body: loginUserBody = loginUserSchema.parse(request.body);
 
-  const token = await userLoginService(body.email, body.password);
+  const user = await userLoginService(body.email, body.password);
 
-  return reply.status(200).send({ token });
+  const token = await reply.jwtSign({userId: user.id});
+  return reply.send({ token });
 }
