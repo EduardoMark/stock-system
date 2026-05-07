@@ -1,14 +1,15 @@
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:18.3
+    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
       POSTGRES_DB: stock-system
     ports:
-      - "5432:5432"
+      - "5423:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/18/docker
 
 volumes:
   postgres_data:

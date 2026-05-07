@@ -16,6 +16,6 @@ export async function userLoginController(request: FastifyRequest, reply: Fastif
 
   const user = await userLoginService(body.email, body.password);
 
-  const token = await reply.jwtSign({userId: user.id});
+  const token = await reply.jwtSign({userId: user.id}, { expiresIn: '1h' });
   return reply.send({ token });
 }
