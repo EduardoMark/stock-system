@@ -1,0 +1,10 @@
+info:
+  name: products
+  type: folder
+  seq: 1
+
+request:
+  headers:
+    - name: Authorization
+      value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2VjNTBiYy0yNWRkLTQ2ZmItYTc2NS02OGE2ODE0NTdkMDEiLCJpYXQiOjE3Nzg1MTU4NjYsImV4cCI6MTc3ODUxOTQ2Nn0.6Zsd84pOkESdS8s_C6QgPM46ONm_G2JfH5Gy70ZXo4w
+  auth: inherit

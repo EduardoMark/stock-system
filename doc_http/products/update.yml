@@ -1,0 +1,28 @@
+info:
+  name: update
+  type: http
+  seq: 2
+
+http:
+  method: PUT
+  url: "{{base_path}}/products/:id"
+  params:
+    - name: id
+      value: 0a6269b1-0233-4368-82fe-2d8e1a95b7ee
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Teste",
+        "description": "testando",
+        "price": 1000,
+        "sku": "123"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,24 @@
+info:
+  name: create
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{base_path}}/products"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Teste",
+        "description": "testando",
+        "price": 100,
+        "sku": "123"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

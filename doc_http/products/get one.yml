@@ -1,0 +1,19 @@
+info:
+  name: get one
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: "{{base_path}}/products/:id"
+  params:
+    - name: id
+      value: 0a6269b1-0233-4368-82fe-2d8e1a95b7ee
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

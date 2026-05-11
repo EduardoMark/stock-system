@@ -1,0 +1,4 @@
+name: stock_system
+variables:
+  - name: base_path
+    value: http://localhost:3000
