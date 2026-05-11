@@ -1,5 +1,11 @@
 import type { FastifyInstance } from 'fastify';
-import { createProductController, getProductsController, getProductByIdController } from './product.controller.js';
+import {
+  createProductController,
+  getProductsController,
+  getProductByIdController,
+  updateProductController,
+  deleteProductController,
+} from './product.controller.js';
 
 export async function productRoutes(fastify: FastifyInstance) {
   fastify.post('/', async (request, reply) => {
@@ -12,5 +18,13 @@ export async function productRoutes(fastify: FastifyInstance) {
 
   fastify.get('/:id', async (request, reply) => {
     await getProductByIdController(request, reply);
+  });
+
+  fastify.put('/:id', async (request, reply) => {
+    await updateProductController(request, reply);
+  });
+
+  fastify.delete('/:id', async (request, reply) => {
+    await deleteProductController(request, reply);
   });
 }
