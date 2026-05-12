@@ -11,12 +11,12 @@ Sistema de controle de estoque com autenticação e histórico de movimentaçõe
 - [  ] RF04: O sistema deve proteger as rotas de estoque e movimentações, exigindo autenticação.
 
 ### Produtos
-- [ ] RF05: Criar produtos
-- [ ] RF06: Listar produtos
+- [ x ] RF05: Criar produtos
+- [ x ] RF06: Listar produtos
   - Páginação
   - Filtrar por nome
-- [ ] RF07: Atualizar produtos 
-- [ ] RF08: Excluir produtos
+- [ x ] RF07: Atualizar produtos 
+- [ x ] RF08: Excluir produtos
 
 ### Estoque
 - [ ] RF09: Registrar movimentações no estoque

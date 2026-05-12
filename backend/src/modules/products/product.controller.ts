@@ -9,6 +9,8 @@ import {
   getProductByIdService,
   updateProductService,
   deleteProductService,
+  type ProductFilter,
+  type ProductPagination,
 } from './product.service.js';
 import {
   updateProductSchema,
@@ -34,7 +36,37 @@ export async function getProductsController(
 ) {
   await request.jwtVerify();
 
-  const products = await getProductsService();
+  const { page, limit, name, sku } = request.query as {
+    page?: string;
+    limit?: string;
+    name?: string;
+    sku?: string;
+  };
+
+  const pagination: ProductPagination = {};
+
+  if (page) {
+    pagination.page = Number(page);
+  }
+
+  if (limit) {
+    pagination.limit = Number(limit);
+  }
+
+  const filter: ProductFilter = {};
+
+  if (name) {
+    filter.name = name;
+  }
+
+  if (sku) {
+    filter.sku = sku;
+  }
+
+  const products = await getProductsService(
+    pagination,
+    filter
+  );
 
   return reply.status(200).send(products);
 }

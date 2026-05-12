@@ -4,6 +4,16 @@ import { AppError } from '../../erros/app-error.js';
 import type { CreateProductBody } from './dtos/create-product.dto.js';
 import type { UpdateProductBody } from './dtos/update-product.dto.js';
 
+export type ProductPagination = {
+  page?: number;
+  limit?: number;
+}
+
+export type ProductFilter = {
+  name?: string;
+  sku?: string;
+}
+
 export async function createProductService(data: CreateProductBody) {
   try {
     await prisma.products.create({
@@ -24,9 +34,23 @@ export async function createProductService(data: CreateProductBody) {
   }
 }
 
-export async function getProductsService(): Promise<ProductsModel[]> {
+export async function getProductsService(
+  pagination?: ProductPagination,
+  filter?: ProductFilter,
+): Promise<ProductsModel[]> {
+  const page = Math.max(1, pagination?.page ?? 1);
+  const limit = Math.min(100, Math.max(1, pagination?.limit ?? 10));
+
+
   try {
-    const products = await prisma.products.findMany();
+    const products = await prisma.products.findMany({
+      skip: (page - 1) * limit,
+      take: limit,
+      where: {
+        ...(filter?.name && { name: filter.name }),
+        ...(filter?.sku && { sku: filter.sku }),
+      },
+    });
     return products;
   } catch (error) {
     console.error('Error fetching products:', error);
