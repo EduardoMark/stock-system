@@ -6,6 +6,7 @@ import { AppError } from './erros/app-error.js';
 import { productRoutes } from './modules/products/product.routes.js';
 import jwt from '@fastify/jwt';
 import type { FastifyError } from 'fastify';
+import { stockMovimentRoutes } from './modules/stock-movements/stock-movement.route.js';
 
 export const app = fastify();
 
@@ -49,3 +50,4 @@ app.get('/', async () => {
 
 app.register(usersRoutes, { prefix: '/users' });
 app.register(productRoutes, { prefix: '/products' });
+app.register(stockMovimentRoutes, { prefix: '/stock-movements' });

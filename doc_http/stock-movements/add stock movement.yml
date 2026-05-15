@@ -1,0 +1,24 @@
+info:
+  name: add stock movement
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{base_path}}/stock-movements"
+  body:
+    type: json
+    data: |-
+      {
+        "product_id": "5a200db8-9a77-4dd3-8644-1bbb197a4656",
+        "type": "OUT",
+        "quantity": 60
+        
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

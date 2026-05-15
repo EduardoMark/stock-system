@@ -29,4 +29,23 @@ model Products {
   sku String @unique
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+
+  movements Stock_movements[]
+}
+
+model Stock_movements {
+  id String @id @default(uuid())
+  product_id String
+  type StockMovementType
+  quantity Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  product Products @relation(fields: [product_id], references: [id])
+  @@index([product_id])
+}
+
+enum StockMovementType {
+  IN
+  OUT
 }
