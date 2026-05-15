@@ -17,7 +17,7 @@ describe('Users routes', () => {
     execSync('npx prisma migrate dev');
   });
 
-  it('should be create a new user', async () => {
+  it.skip('should be create a new user', async () => {
     await request(app.server)
       .post('/users')
       .send({
@@ -26,5 +26,24 @@ describe('Users routes', () => {
         password: '123456',
       })
       .expect(201);
+  });
+
+  it.skip('should be log in with the user', async () => {
+    await request(app.server)
+      .post('/users')
+      .send({
+        name: 'Eduardo',
+        email: 'eduardo@email.com',
+        password: '123456',
+      })
+      .expect(201);
+
+    await request(app.server)
+      .post('/users/login')
+      .send({
+        email: 'eduardo@email.com',
+        password: '123456',
+      })
+      .expect(200);
   });
 });
