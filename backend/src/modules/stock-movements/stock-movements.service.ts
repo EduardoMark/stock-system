@@ -38,7 +38,6 @@ export async function addStockMovement(data: AddStockMovementBody) {
     console.error('Error adding stock movement:', error);
     throw new AppError('Failed to add stock movement', 500);
   }
-
 }
 
 export async function getAgregateStockMovements(productId: string) {
@@ -54,5 +53,39 @@ export async function getAgregateStockMovements(productId: string) {
   } catch (error) {
     console.error('Error getting aggregate stock movements:', error);
     throw new AppError('Failed to get aggregate stock movements', 500);
+  }
+}
+
+export async function getStockMovementById(id: string) {
+  try {
+    const stockMovement = await prisma.stock_movements.findUnique({
+      where: { id },
+    });
+    return stockMovement;
+  } catch (error) {
+    console.error('Error getting stock movement by ID:', error);
+    throw new AppError('Failed to get stock movement by ID', 500);
+  }
+}
+
+export async function getStockMovementsByProductId(productId: string) {
+  try {
+    const stockMovements = await prisma.stock_movements.findMany({
+      where: { product_id: productId },
+    });
+    return stockMovements;
+  } catch (error) {
+    console.error('Error getting stock movements by product ID:', error);
+    throw new AppError('Failed to get stock movements by product ID', 500);
+  }
+}
+
+export async function getAllStockMovements() {
+  try {
+    const stockMovements = await prisma.stock_movements.findMany();
+    return stockMovements;
+  } catch (error) {
+    console.error('Error getting all stock movements:', error);
+    throw new AppError('Failed to get all stock movements', 500);
   }
 }
