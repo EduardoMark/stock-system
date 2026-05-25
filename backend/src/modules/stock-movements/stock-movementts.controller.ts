@@ -11,54 +11,57 @@ import {
   getStockMovementsByProductId,
 } from './stock-movements.service.js';
 
+
 export async function addStockMovementController(
-  req: FastifyRequest,
-  res: FastifyReply,
+  request: FastifyRequest,
+  reply: FastifyReply,
 ) {
-  const body: AddStockMovementBody = addStockMovementSchema.parse(req.body);
+  await request.jwtVerify();
+
+  const body: AddStockMovementBody = addStockMovementSchema.parse(request.body);
   await addStockMovement(body);
-  res.status(201).send({ message: 'Stock movement added successfully' });
+  reply.status(201).send({ message: 'Stock movement added successfully' });
 }
 
 export async function getAggregateStockMovementsController(
-  req: FastifyRequest,
-  res: FastifyReply,
+  request: FastifyRequest,
+  reply: FastifyReply,
 ) {
-  const { productId } = req.params as { productId: string };
+  const { productId } = request.params as { productId: string };
 
   const totalStock = await getAgregateStockMovements(productId);
-  res.send({ productId, totalStock });
+  reply.send({ productId, totalStock });
 }
 
 export async function getStockMovementByIdController(
-  req: FastifyRequest,
-  res: FastifyReply,
+  request: FastifyRequest,
+  reply: FastifyReply,
 ) {
-  const { id } = req.params as { id: string };
+  const { id } = request.params as { id: string };
 
   const stockMovement = await getStockMovementById(id);
   if (!stockMovement) {
-    res.status(404).send({ message: 'Stock movement not found' });
+    reply.status(404).send({ message: 'Stock movement not found' });
     return;
   }
 
-  res.send(stockMovement);
+  reply.send(stockMovement);
 }
 
 export async function getStockMovementsByProductIdController(
-  req: FastifyRequest,
-  res: FastifyReply,
+  request: FastifyRequest,
+  reply: FastifyReply,
 ) {
-  const { productId } = req.params as { productId: string };
+  const { productId } = request.params as { productId: string };
 
   const stockMovements = await getStockMovementsByProductId(productId);
-  res.send(stockMovements);
+  reply.send(stockMovements);
 }
 
 export async function getAllStockMovementsController(
-  req: FastifyRequest,
-  res: FastifyReply,
+  request: FastifyRequest,
+  reply: FastifyReply,
 ) {
   const stockMovements = await getAllStockMovements();
-  res.send(stockMovements);
+  reply.send(stockMovements);
 }

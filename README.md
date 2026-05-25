@@ -8,7 +8,7 @@ Sistema de controle de estoque com autenticação e histórico de movimentaçõe
 - [ x ] RF01: O sistema deve permitir que os usuários se registrem com um nome, e-mail e senha.
 - [ x ] RF02: O sistema deve permitir que os usuários façam login usando seu e-mail e senha.
 - [ x ] RF03: Sistema deve retornar um token JWT ao autenticar.
-- [  ] RF04: O sistema deve proteger as rotas de estoque e movimentações, exigindo autenticação.
+- [ x ] RF04: O sistema deve proteger as rotas de estoque e movimentações, exigindo autenticação.
 
 ### Produtos
 - [ x ] RF05: Criar produtos
@@ -19,14 +19,14 @@ Sistema de controle de estoque com autenticação e histórico de movimentaçõe
 - [ x ] RF08: Excluir produtos
 
 ### Estoque
-- [ ] RF09: Registrar movimentações no estoque
-- [ ] RF10: Cada movimentação deve conter:
+- [ x ] RF09: Registrar movimentações no estoque
+- [ x ] RF10: Cada movimentação deve conter:
   - Tipo (entrada ou saída)
   - Produto
   - Quantidade
   - Data
-- [ ] RF11: Sistema deve calcular estoque com base nas movimentações registradas.
-- [ ] RF12: Não permitir estoque negativo.
+- [ x ] RF11: Sistema deve calcular estoque com base nas movimentações registradas.
+- [ x ] RF12: Não permitir estoque negativo.
 
 ### Frontend
 - [ ] RF13: Interface para cadastro e login de usuários.
