@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/server.ts",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "lint:fix": "eslint . --fix",
-    "test": "vitest"
+    "test": "vitest",
+    "build": "tsup src --format esm --out-dir build"
   },
   "keywords": [],
   "author": "",
@@ -37,6 +41,7 @@
     "fastify": "^5.8.5",
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.20.0",
+    "tsup": "^8.5.1",
     "zod": "^4.4.1"
   }
 }
