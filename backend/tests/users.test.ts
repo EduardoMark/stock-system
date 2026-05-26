@@ -14,7 +14,7 @@ describe('Users routes', () => {
   });
 
   beforeEach(() => {
-    execSync('npx prisma migrate dev');
+    execSync('npx prisma migrate reset --force');
   });
 
   it.skip('should be create a new user', async () => {
